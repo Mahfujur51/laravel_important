@@ -1,0 +1,16 @@
+intervention image from third party software
+===============**=========================     
+
+
+   if ($request->hasFile('product_images')) {
+          //insert that image
+          $image = $request->file('product_images');
+          $img = time() . '.'. $image->getClientOriginalExtension();
+          $location = public_path('images/products/' .$img);
+          Image::make($image)->save($location);
+        
+          $product_images = new ProductImage;
+          $product_images->product_id = $product->id;
+          $product_images->image = $img;
+          $product_images->save();
+        }

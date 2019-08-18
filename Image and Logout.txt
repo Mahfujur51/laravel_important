@@ -1,0 +1,43 @@
+
+
+
+
+
+==================================**Logout**========================================================
+<a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+<i class="material-icons">exit_to_app</i>
+<p class="d-lg-none d-md-block">Logout</p>
+</a>
+<form id="logout-form" action="{{route('logout')}}" method="post" style="display: none;">
+@csrf
+</form>
+==============================**End Logout**===========================================================
+
+
+===============================**Image**=============================================================
+$this->validate( $request,[
+
+                    'title'=>'required',
+                    'sub_title'=>'required',
+                    'image'=>'required|mimes:jpeg,jpg,gif,png,bmp',
+
+
+        ]);
+        $image=$request->file('image');
+        $slag=str_slug($request->titel);
+        if (isset($image)) {
+            
+            $currentDate=Carbon::now()->toDateString();
+            $imagename=$slag.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+
+            if (!file_exists('uploads/slider')) {
+                mkdir('uploads/slider',0777,true);
+            }
+            $image->move('uploads/slider',$imagename);
+
+
+        }
+         else{
+                $imagename='default.png';
+            }
+=========================================**end Image**=================================================
